@@ -1,13 +1,17 @@
 <template>
+  <header-uol></header-uol>
   <div id="app">
     <player-form @addPlayer="addPlayer" @reloadPlayers="reloadPlayers" />
     <player-list :players="players" />
   </div>
+  <footer-ferruje></footer-ferruje>
 </template>
 
 <script>
 import PlayerForm from "./components/PlayerForm.vue";
 import PlayerList from "./components/PlayerList.vue";
+import FooterFerruje from "./components/FooterFerruje.vue";
+import HeaderUol from "./components/HeaderUol.vue";
 
 export default {
   name: "App",
@@ -27,6 +31,8 @@ export default {
   components: {
     PlayerForm,
     PlayerList,
+    FooterFerruje,
+    HeaderUol,
   },
 };
 </script>
@@ -36,11 +42,11 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
   color: #2c3e50;
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 
 form {
   display: flex;
@@ -66,16 +72,17 @@ label {
 }
 
 button {
-  background-color: rgb(0, 255, 255);
-  color: black;
+  background-color:#015326;
+  color: white;
   font-size: 18px;
   padding: 10px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  border-radius: 10px;
 }
 
 .option,
 button:hover {
-  background-color: rgb(4, 206, 241);
+  background-color: #00682f;
   box-shadow: 1px 1px 3px 0 rgb(24, 24, 24);
   cursor: pointer;
 }

@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     handleSubmit() {
-      const url = 'http://localhost:8080/api/users';
+      const url = 'http://localhost:8080/users';
 
       console.log(this.player);
 
@@ -86,7 +86,7 @@ export default {
     listPlayers() {
       // Lógica para listar jogadores
 
-      axios.get('http://localhost:8080/api/users')
+      axios.get('http://localhost:8080/users')
         .then(response => {
           this.$emit("reloadPlayers", [ ...response.data])
           this.players = response.data;

@@ -1,15 +1,17 @@
 <template>
     <div>
       <h2>Listagem de Jogadores</h2>
-      <ul>
-        <li class="player-container">
-          <label v-for="(value, i) in mapTable" :key="i" class="table">
-            {{ value }}
-          </label>
-        </li>
-        <li class="player-container" v-for="(player, index) in players" :key="index" >
-          <label v-for="(value, i) in player" :key="i">{{ value }}</label>
-        </li>
+      <ul class="list">
+        <ul class="sub-column" v-for="(legion, i) in legions" :key="i">
+          <h2>{{ legion }}</h2>
+          <li  class="player-container" v-for="(player, j) in filteredPlayers(legion)" :key="j">
+            <div class="data-line" v-for="(value, key) in player" :key="key">
+              <div class="template" v-if="shouldRender(key)" >
+                <a>{{ key }}: </a><a class="data">{{ value }}</a>
+              </div>
+            </div>
+          </li>
+        </ul>
       </ul>
     </div>
   </template>
@@ -18,59 +20,74 @@
   export default {
     data() {
       return {
-        mapTable: [
-          "Id",
-          "Nome",
-          "Email",
-          "Phone",
-          "Codinome",
-          "Grupo",
-        ],
+        legions: ['VINGADORES', 'LIGADAJUSTICA'],
+        excludedKeys: ['id', 'legion'],
       };
+    },
+    computed: {
+      filteredPlayers() {
+        return (legion) => this.players.filter(x => x.legion === legion);
+      },
     },
     props: {
       players: Array,
+    },
+    methods: {
+      shouldRender(key) {
+        return !this.excludedKeys.includes(key);
+      }
     },
   };
   </script>
   
   <style scoped>
-  .player-container {
-    margin: 4px 0;
+  .list {
+    background-color: #ddffe5;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    padding: 20px;
+    border-radius: 15px;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    width: 700px;
+  }
+  .sub-column {
+    padding: 5px;
     width: 100%;
-    background-color: rgb(179, 228, 248);
-    border-radius: 5px;
+  }
+
+  .player-container {
+    margin: 10px 0;
+    width: 300px;
+    background-color: #91c7b1;
+    border-radius: 15px;
     list-style-type: none;
     padding: 7px 10px;
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    gap: 10px;
+    flex-direction: column;
   }
 
-  span {
-    color: black;
+  .data {
+    background-color: white;
+    text-align: left;
+    width: 100%;
+    padding: 0 5px;
+    border-radius: 15px;
+  }
+
+  .template {
+    display: flex;
+    justify-content: left;
+  }
+
+  .data-line {
     font-size: 20px;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin: 2px;
+    width: 100%;
   }
 
-  label {
-    background-color: white;
-    justify-content: center;
-    align-items: center;
-    height: 40px;
-    width: 150px;
-    padding: 0 5px;
-  }
-
-  .table {
-    background-color: rgb(197, 197, 197);
-    font-size: 22px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    width: 150px;
-    height: 25px;
-    padding: 5px;
-  }
 
   h2 {
     color: #41b883;
